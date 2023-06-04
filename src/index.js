@@ -15,7 +15,7 @@ function fetchBreeds() {
 
   const r = fetch(`${BaseUrl}breeds?api_key=${ApiKey}`);
   console
-    .log(r)
+    .dir(r)
     .then(resp => {
       if (!resp.ok) {
         throw new Error(resp.statusText, 'p.error');
