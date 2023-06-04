@@ -13,10 +13,9 @@ function fetchBreeds() {
   const ApiKey =
     'live_sHTcMzdhlueqqIpYr2EasVgaHY3pGwpKXvGupiU3EuYOITKGy0u5HY4qZgnVuIUr';
 
-  const r = fetch(`${BaseUrl}breeds?api_key=${ApiKey}`);
-  console
-    .dir(r)
+  fetch(`${BaseUrl}breeds?api_key=${ApiKey}`)
     .then(resp => {
+      console.log(resp);
       if (!resp.ok) {
         throw new Error(resp.statusText, 'p.error');
       }
@@ -25,6 +24,7 @@ function fetchBreeds() {
     })
     .catch(err => console.log(err));
 }
+fetchBreeds();
 // fetchBreeds().then(data => {
 //   console.log(data);
 // });
