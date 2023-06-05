@@ -13,7 +13,7 @@ function fetchBreeds() {
   const ApiKey =
     'live_sHTcMzdhlueqqIpYr2EasVgaHY3pGwpKXvGupiU3EuYOITKGy0u5HY4qZgnVuIUr';
 
-  fetch(`${BaseUrl}breeds?api_key=${ApiKey}`)
+  return fetchBreeds(`${BaseUrl}breeds?api_key=${ApiKey}`)
     .then(resp => {
       console.log(resp);
       if (!resp.ok) {
@@ -24,13 +24,24 @@ function fetchBreeds() {
     })
     .catch(err => console.log(err));
 }
-fetchBreeds();
-// fetchBreeds().then(data => {
-//   console.log(data);
-// });
+fetchBreeds().then(data => {
+  console.log(data);
+  catSelect.insertAdjacentElement('beforeend', createMarcap(data));
+});
+function createMarcap(arr) {
+  return arr
+    .map(
+      ({
+        reference_image_id,
+        description,
+        name,
+      }) => `<option class="js-cat-breeds" value="${reference_image_id}" name="${name}" 
+    
+    ></option>`
+    )
+    .join('');
+}
 
-//   .then(data => console.log(data))
-//
 // // 2.Колекція порід
 // // 3.Інформація про кота
 // fetchCatByBreed(breedId);
