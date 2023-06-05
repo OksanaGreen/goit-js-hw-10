@@ -10,10 +10,11 @@ const catInfo = document.querySelector('.cat-info');
 let breedId;
 function fetchBreeds() {
   const BaseUrl = 'https://api.thecatapi.com/v1/';
+  const ImgUrl = 'https://cdn2.thecatapi.com/images/';
   const ApiKey =
     'live_sHTcMzdhlueqqIpYr2EasVgaHY3pGwpKXvGupiU3EuYOITKGy0u5HY4qZgnVuIUr';
 
-  return fetchBreeds(`${BaseUrl}breeds?api_key=${ApiKey}`)
+  fetchBreeds(`${BaseUrl}breeds?api_key=${ApiKey}`)
     .then(resp => {
       console.log(resp);
       if (!resp.ok) {
@@ -40,6 +41,14 @@ function createMarcap(arr) {
     ></option>`
     )
     .join('');
+}
+function fullCatBeeds(beed) {
+  const fullBeed = `<div class=class="cat-info">
+ <img src="${ImgUrl}value="${reference_image_id}">
+ <p class="cat-info">${'description'}</p>
+</div>`;
+
+  return fullBeed;
 }
 
 // // 2.Колекція порід
