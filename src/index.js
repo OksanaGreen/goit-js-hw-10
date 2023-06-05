@@ -1,20 +1,41 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
-new SlimSelect({
+const newSlimSelect = new SlimSelect({
   select: '#selectElement',
+  settings: {
+    openPosition: 'auto', // 'auto', 'up' or 'down'
+  },
 });
 const catSelect = document.querySelector('.breed-select');
 const catInfo = document.querySelector('.cat-info');
 // 1.HTTP - запити( і повертає проміс із масивом порід - результатом запиту. )
-let breedId;
-function fetchBreeds() {
+catSelect.addEventListener('change', onSearch);
+function onSearch(event) {
+  event.preventDefault();
+  const beedyName = event.target.value.id;
+  console.log(event.target.value.id);
+  if (!beedyName) {
+    catInfo.innerHTML = '';
+    return;
+  }
+  new SlimSelect({
+    select: '#selectElement',
+    events: {
+      beforeChange: (beedyName, oldVal) => {
+        console.log(beedyName);
+        return false; // this will stop the change from happening
+      },
+    },
+  });
+}
+
+function fetchBreeds(beedyName) {
   const BaseUrl = 'https://api.thecatapi.com/v1/';
   const ImgUrl = 'https://cdn2.thecatapi.com/images/';
   const ApiKey =
     'live_sHTcMzdhlueqqIpYr2EasVgaHY3pGwpKXvGupiU3EuYOITKGy0u5HY4qZgnVuIUr';
-
-  fetchBreeds(`${BaseUrl}breeds?api_key=${ApiKey}`)
+  return fetch(`${BaseUrl}breeds?api_key=${ApiKey}`)
     .then(resp => {
       console.log(resp);
       if (!resp.ok) {
@@ -45,15 +66,8 @@ function createMarcap(arr) {
 function fullCatBeeds(beed) {
   const fullBeed = `<div class=class="cat-info">
  <img src="${ImgUrl}value="${reference_image_id}">
- <p class="cat-info">${'description'}</p>
+ <p class="cat-info"> name="${name}""${description}"</p>
 </div>`;
 
   return fullBeed;
 }
-
-// // 2.Колекція порід
-// // 3.Інформація про кота
-// fetchCatByBreed(breedId);
-// // 4.Опрацювання стану завантаження
-// // 5.Опрацювання помилки
-// https://api.thecatapi.com/v1/images/search?breed_ids={breed.id}
