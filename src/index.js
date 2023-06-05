@@ -9,28 +9,30 @@ const newSlimSelect = new SlimSelect({
 });
 const catSelect = document.querySelector('.breed-select');
 const catInfo = document.querySelector('.cat-info');
+let el = document.querySelector('#selectElement');
 // 1.HTTP - запити( і повертає проміс із масивом порід - результатом запиту. )
 catSelect.addEventListener('change', onSearch);
 function onSearch(event) {
   event.preventDefault();
-  const beedyName = event.target.value.id;
-  console.log(event.target.value.id);
-  if (!beedyName) {
-    catInfo.innerHTML = '';
+  const breedyName = event.target.value;
+  if (!breedyName) {
+    catSelect.innerHTML = '';
     return;
   }
   new SlimSelect({
     select: '#selectElement',
     events: {
-      beforeChange: (beedyName, oldVal) => {
-        console.log(beedyName);
+      beforeChange: (breedyName, oldVal) => {
+        console.log(breedyName);
         return false; // this will stop the change from happening
       },
     },
   });
 }
 
-function fetchBreeds(beedyName) {
+el.slim.open();
+
+function fetchBreeds() {
   const BaseUrl = 'https://api.thecatapi.com/v1/';
   const ImgUrl = 'https://cdn2.thecatapi.com/images/';
   const ApiKey =
@@ -50,8 +52,9 @@ fetchBreeds().then(data => {
   console.log(data);
   catSelect.insertAdjacentHTML('beforeend', createMarcap(data));
 });
-function createMarcap(arr) {
-  return arr
+let breeds;
+function createMarcap(breeds) {
+  return (breedyName = breeds
     .map(
       ({
         reference_image_id,
@@ -61,13 +64,13 @@ function createMarcap(arr) {
     
     ></option>`
     )
-    .join('');
+    .join(''));
 }
-function fullCatBeeds(beed) {
-  const fullBeed = `<div class=class="cat-info">
+function fullCatBreed(breeds) {
+  const fullBreed = `<div class=class="cat-info">
  <img src="${ImgUrl}value="${reference_image_id}">
  <p class="cat-info"> name="${name}""${description}"</p>
 </div>`;
 
-  return fullBeed;
+  return fullBreed;
 }
