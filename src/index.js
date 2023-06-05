@@ -26,7 +26,7 @@ function fetchBreeds() {
 }
 fetchBreeds().then(data => {
   console.log(data);
-  catSelect.insertAdjacentElement('beforeend', createMarcap(data));
+  catSelect.insertAdjacentHTML('beforeend', createMarcap(data));
 });
 function createMarcap(arr) {
   return arr
