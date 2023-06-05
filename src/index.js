@@ -20,14 +20,17 @@ function onSearch(event) {
     return;
   }
   new SlimSelect({
-    select: '#selectElement',
-    events: {
-      beforeChange: (breedyName, oldVal) => {
-        console.log(breedyName);
-        return false; // this will stop the change from happening
-      },
-    },
+    select: '#single',
   });
+  // new SlimSelect({
+  //   select: '#selectElement',
+  //   events: {
+  //     beforeChange: (breedyName, oldVal) => {
+  //       console.log(breedyName);
+  //       return false; // this will stop the change from happening
+  //     },
+  //   },
+  // });
 }
 
 el.slim.open();
